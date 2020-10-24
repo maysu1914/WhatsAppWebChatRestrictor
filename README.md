@@ -1,4 +1,4 @@
-# WhatsAppWebChatRestricter
+# WhatsAppWebChatRestrictor
 A JavaScript code for the WhatsApp Web page that serves to restrict the visibility of chats and other parts for certain specific cases.
 
 ***Object:** Make WhatsApp Web to show only chosen chats to user and hide other chats and **counterproductive parts (i.e. search bar, change profile or exit from WhatsApp Web)***.
