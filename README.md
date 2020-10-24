@@ -10,7 +10,7 @@ This is a special project that appeals to a very small audience. Therefore I mad
 **This picture shows the standard page of WhatsApp Web**
 ![image1](https://res.cloudinary.com/djiay4zdw/image/upload/v1603573493/1edited_mje6vo.jpg)
 
-**And this one is the picture of script injected WhatsApp Web (groups only, specified in the code)**
+**And this one is the picture of script injected WhatsApp Web (only the chats that determined in the code)**
 ![image2](https://res.cloudinary.com/djiay4zdw/image/upload/v1603573494/2edited_nknaxh.jpg)
 
 You will find a list top of the script. The chats to be shown are assigned here. You can inject the code with any code injector extension with your internet browser. *(Preferred: Code Injector extension by L.Sabatelli)*
