@@ -1,18 +1,20 @@
-var isPageReady = false;
-
-final_chats = [
-    '5A matematik grubu',
-    '5/A ARAPÇA GRUBU',
-    '5/A sınıfı',
-    '5/A İNGİLİZCE',
-    '5/A Fen Bilgisi',
-]
-
 init();
 
 function init() {
     console.log('System initializing...');
-    isPageReady = false;
+    disconnectMutationObservers();
+    self.all_observers = {};
+    self.isPageReady = false;
+    self.final_chats = [
+        '5A matematik grubu',
+        '5/A ARAPÇA GRUBU',
+        '5/A sınıfı',
+        '5/A İNGİLİZCE',
+        '5/A Fen Bilgisi',
+        '5/A ÖDEV GRUBU',
+        '5A DIN ve SIYER GRUBU',
+    ]
+
     chatDetection();
 }
 
@@ -23,12 +25,23 @@ function chatDetection() {
         var check = document.getElementById('pane-side');
         if (check) {
             console.log('Chat section is detected!');
-            hideUnwantedChats();
+
+            delete all_observers['chatDetection'];
             observer.disconnect();
+            start();
         }
     });
 
     observer.observe(document, observeConfigs());
+    all_observers['chatDetection'] = observer;
+}
+
+function start() {
+    hideUnwantedChats();
+
+    if (!isPageReady) oneTimeCleanup();
+
+    chatChangesDetection();
 }
 
 function hideUnwantedChats() {
@@ -37,7 +50,6 @@ function hideUnwantedChats() {
     groups = document.getElementsByClassName('_210SC');
 
     var y_value = -72;
-
     for (const group of groups) {
         var group_name = group.getElementsByClassName('_3CneP')[0].textContent.trim();
         if (final_chats.includes(group_name)) {
@@ -48,19 +60,18 @@ function hideUnwantedChats() {
             group.hidden = true;
         }
     };
+}
 
-    if (!isPageReady) {
-        for (const group of groups) {
-            if (!group.hidden) {
-                var clickable_element = group.getElementsByClassName("eJ0yJ")[0];
-                realLikeClick(clickable_element);
-                break;
-            }
+function oneTimeCleanup() {
+    for (const group of groups) {
+        if (!group.hidden) {
+            var clickable_element = group.getElementsByClassName("eJ0yJ")[0];
+            realLikeClick(clickable_element);
+            break;
         }
-        removeRiskyModules();
-        chatChangesDetection();
-        inUseDetection();
     }
+    removeRiskyModules();
+    inUseDetection();
 }
 
 function inUseDetection() {
@@ -72,48 +83,49 @@ function inUseDetection() {
             console.log('In Use section is detected!');
             document.getElementsByClassName('S7_rT FV2Qy')[0].addEventListener("click", init);
             document.getElementsByClassName('S7_rT _1hQZ_')[0].addEventListener("click", init);
+            delete all_observers['inUseDetection'];
             observer.disconnect();
         }
     });
 
     observer.observe(document, observeConfigs());
+    all_observers['inUseDetection'] = observer;
 }
 
 function chatChangesDetection() {
     console.log('Chat change detection is creating...');
 
     let observer = new MutationObserver(mutations => {
-        console.log('Some chat changes...')
-        hideUnwantedChats();
-        // for (let mutation of mutations) {
-        //     for (let node of mutation.addedNodes) {
-        //         // we track only elements, skip other nodes (e.g. text nodes)
-        //         if (!(node instanceof HTMLElement)) continue;
+        console.log('Some changes...')
 
-        //         // check the inserted element for being a code snippet
-        //         if (node.matches('div[class*="_210SC"]')) {
-        //             console.log('New chat detected!');
-        //             hideUnwantedChats();
-        //             return;
-        //         }
-        //     }
-        //     for (let node of mutation.removedNodes) {
-        //         // we track only elements, skip other nodes (e.g. text nodes)
-        //         if (!(node instanceof HTMLElement)) continue;
+        for (let mutation of mutations) {
+            if (mutation.type === 'attributes' && mutation.target.matches('div[class*="_210SC"]')) {
+                console.log('Changes in the attributes of some chats....');
+                observer.disconnect();
+                start();
+                return;
+            }
 
-        //         // check the inserted element for being a code snippet
-        //         if (node.matches('div[class*="_210SC"]')) {
-        //             console.log('Chat deletion detected!');
-        //             hideUnwantedChats();
-        //             return;
-        //         }
-        //     }
-        // }
+            for (let node of mutation.addedNodes) {
+                // we track only elements, skip other nodes (e.g. text nodes)
+                if (!(node instanceof HTMLElement)) continue;
+
+                if (node.matches('div[class*="_210SC"]')) {
+                    console.log('New chats have arrived...');
+
+                    delete all_observers['chatChangesDetection'];
+                    observer.disconnect();
+                    start();
+                    return;
+                }
+            }
+        }
     });
 
     let demoElem = document.getElementById('pane-side');
 
     observer.observe(demoElem, observeConfigs());
+    all_observers['chatChangesDetection'] = observer;
 }
 
 function removeRiskyModules() {
@@ -159,5 +171,16 @@ function realLikeClick(element) {
 };
 
 function observeConfigs() {
-    return { attributes: false, childList: true, characterData: false, subtree: true };
+    return { attributes: true, childList: true, characterData: false, subtree: true };
 };
+
+function disconnectMutationObservers() {
+    console.log("Existing observers are disconnecting...");
+
+    if (!(typeof all_observers === 'undefined')) {
+        for (var key in all_observers) {
+            all_observers[key].disconnect();
+            console.log(key, "disconnected!");
+        }
+    }
+}
