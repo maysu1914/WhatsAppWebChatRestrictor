@@ -20,8 +20,8 @@ function init() {
 function addCSS() {
     var style = document.createElement('style');
     style.innerHTML = `
-    /* Clickable phone numbers and usernames */
-    div.zGvn8._23x7I {
+    /* Clickable phone numbers and usernames, admins text for readonly groups */
+    div.zGvn8._23x7I, span[role="button"][class="_3oqIG"] {
         pointer-events: none; 
         cursor: default;
     }
