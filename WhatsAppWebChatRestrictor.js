@@ -9,9 +9,14 @@ function init() {
         '5/A sınıfı',
         '5/A İNGİLİZCE',
         '5/A Fen Bilgisi',
-        '5/A ÖDEV GRUBU',
+        'Ödev Grubu ❤',
         '5A DIN ve SIYER GRUBU',
     ]
+    chat_class = "_1MZWu";
+    chat_name_class = "_1hI5g";
+    chat_pane_id = 'pane-side';
+    multiple_pop_class = '_30EVj IqPek';
+    real_click_class = "_3Tw1q";
     addCSS();
 
     chatObserver();
@@ -21,14 +26,19 @@ function addCSS() {
     var style = document.createElement('style');
     style.innerHTML = `
     /* Clickable phone numbers and usernames, admins text for readonly groups */
-    div.zGvn8._23x7I, span[role="button"][class="_3oqIG"] {
+    div.CWVX1.dV60t, span[role="button"][class="_2lheY"] {
         pointer-events: none; 
         cursor: default;
     }
 
-    /* Forward button, Chat dropdown button, Group info -> Search My Contacts */
-    div._29g--, div._2nBjH._1q11a, div[class="_1Gecv"][role="button"]{
+    /* Forward button, Chat dropdown button, Group info -> Search My Contacts*/
+    div._1ubAk, div._1lcup.kA6WR, div[class="_9lZ0E"][role="button"]{
         visibility: hidden;
+    }
+
+    /* pane-side overflow-y:auto limit the chats by window resolution, must be visible */ 
+    #pane-side{
+        overflow-y: visible;
     }
     `;
     document.head.appendChild(style);
@@ -38,7 +48,7 @@ function chatObserver() {
     console.log('Chat observer is creating...');
 
     var observer = new MutationObserver(function(mutations) {
-        var check = document.getElementById('pane-side');
+        var check = document.getElementById(chat_pane_id);
         if (check) {
             console.log('Chat section is detected!');
 
@@ -62,17 +72,21 @@ function start() {
 function hideUnwantedChats() {
     console.log('Unwanted chats are hiding...');
 
-    chats = document.getElementsByClassName('_210SC');
+    chats = document.getElementsByClassName(chat_class);
 
     var y_value = -72;
     for (const chat of chats) {
-        var chat_name = chat.getElementsByClassName('_3CneP')[0].textContent.trim();
+        var chat_name = chat.getElementsByClassName(chat_name_class)[0].textContent.trim();
+        // console.log(chat_name)
         if (final_chats.includes(chat_name)) {
             y_value += 72;
             var transform_value = "translateY(" + y_value.toString() + "px)";
             chat.style.transform = transform_value;
+            chat.hidden = false;
+            // console.log(chat_name, 'görünür')
         } else {
             chat.hidden = true;
+            // console.log(chat_name, 'gizli')
         }
     };
 }
@@ -82,7 +96,7 @@ function oneTimeCleanup() {
 
     for (const chat of chats) {
         if (!chat.hidden) {
-            var clickable_element = chat.getElementsByClassName("eJ0yJ")[0];
+            var clickable_element = chat.getElementsByClassName(real_click_class)[0];
             realLikeClick(clickable_element);
             break;
         }
@@ -95,12 +109,12 @@ function changeObserver() {
     let observer = new MutationObserver(mutations => {
         console.log('Some changes...');
 
-        var multipleUsageInterrupt = document.getElementsByClassName('G_MLO')[0]
+        var multipleUsageInterrupt = document.getElementsByClassName(multiple_pop_class)[0]
         if (document.contains(multipleUsageInterrupt)) {
             console.log('In Use section is detected!');
 
-            document.getElementsByClassName('S7_rT FV2Qy')[0].addEventListener("click", init);
-            document.getElementsByClassName('S7_rT _1hQZ_')[0].addEventListener("click", init);
+            document.getElementsByClassName("_30EVj IqPek")[0].addEventListener("click", init);
+            document.getElementsByClassName("_30EVj gMRg5")[0].addEventListener("click", init);
             observer.disconnect();
 
             console.log('Change observer disconnected!');
@@ -110,7 +124,7 @@ function changeObserver() {
 
 
         for (let mutation of mutations) {
-            if (mutation.type === 'attributes' && mutation.target.matches('div[class*="_210SC"]')) {
+            if (mutation.type === 'attributes' && mutation.target.matches(`div[class*="${chat_class}"]`)) {
                 console.log('Changes in the attributes of some chats....');
 
                 observer.disconnect();
@@ -125,7 +139,7 @@ function changeObserver() {
                 // we track only elements, skip other nodes (e.g. text nodes)
                 if (!(node instanceof HTMLElement)) continue;
 
-                if (node.matches('div[class*="_210SC"]')) {
+                if (node.matches(`div[class*="${chat_class}"]`)) {
                     console.log('New chats have arrived...');
 
                     observer.disconnect();
@@ -135,7 +149,15 @@ function changeObserver() {
                     start();
                     return;
                 }
+                // forward buttons: when image opened, when message selected
                 // console.log(node);
+                // if (node.matches('span._1TBWy')) {
+                //     if (node.querySelectorAll('div._3Xjbn._1RHZR') && !node.querySelectorAll('div._LNcL')) {
+                //         console.log('Forward window detected...');
+                //         node.querySelector('div._3Xjbn._1RHZR').remove();
+                //     }
+
+                // }
             }
         }
     });
@@ -148,7 +170,8 @@ function removeRiskyModules() {
 
     pane_side = document.getElementById('pane-side');
     pane_side.classList.remove('_3R02z');
-    will_remove = ['header._1QUKR', 'div._2EoyP', 'span._1DzHI']
+    /* header, char search bar, */
+    will_remove = ['header._2O84H', 'div._1Ra05', 'span._1DzHI']
 
     for (const selector of will_remove) {
         var element = document.querySelector(selector);
