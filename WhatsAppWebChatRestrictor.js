@@ -9,14 +9,19 @@ function init() {
         '5/A sınıfı',
         '5/A İNGİLİZCE',
         '5/A Fen Bilgisi',
-        'Ödev Grubu ❤',
+        'Ödev Gurubu',
+        '❤Ödev grubu❤',
         '5A DIN ve SIYER GRUBU',
+        '5/A Beden Eğitimi',
+        '5/A Türkçe grubu'
     ]
     chat_class = "_1MZWu";
     chat_name_class = "_1hI5g";
     chat_pane_id = 'pane-side';
     multiple_pop_class = '_30EVj IqPek';
     real_click_class = "_3Tw1q";
+    chat_mini_image_class = "_1l12d";
+    chat_height_dominant_class = "_3Pwfx";
     addCSS();
 
     chatObserver();
@@ -25,18 +30,18 @@ function init() {
 function addCSS() {
     var style = document.createElement('style');
     style.innerHTML = `
-    /* Clickable phone numbers and usernames, admins text for readonly groups */
-    div.CWVX1.dV60t, span[role="button"][class="_2lheY"] {
+    /* Clickable phone numbers and usernames, admin's text for readonly groups, clickable notification message numbers */
+    div.CWVX1.dV60t, span[role="button"][class="_2lheY"], span._1XH7x._3cwQ7._1VzZY {
         pointer-events: none; 
         cursor: default;
     }
 
-    /* Forward button, Chat dropdown button, Group info -> Search My Contacts*/
-    div._1ubAk, div._1lcup.kA6WR, div[class="_9lZ0E"][role="button"]{
+    /* Forward button, Chat dropdown button, Group info -> Search My Contacts, sended messages dropdown button*/
+    div._1ubAk, div._1lcup.kA6WR, div[class="_9lZ0E"][role="button"], div.N7Dyd.kA6WR{
         visibility: hidden;
     }
 
-    /* pane-side overflow-y:auto limit the chats by window resolution, must be visible */ 
+    /* pane-side overflow-y:auto-> limit the chats by window resolution, must be visible*/ 
     #pane-side{
         overflow-y: visible;
     }
@@ -73,15 +78,21 @@ function hideUnwantedChats() {
     console.log('Unwanted chats are hiding...');
 
     chats = document.getElementsByClassName(chat_class);
-
-    var y_value = -72;
+    let heights = calculateHeights();
+    let y_value = -heights.chat;
     for (const chat of chats) {
-        var chat_name = chat.getElementsByClassName(chat_name_class)[0].textContent.trim();
+        let chat_name = chat.getElementsByClassName(chat_name_class)[0].textContent;
+        chat_name = trimSpaces(chat_name);
         // console.log(chat_name)
         if (final_chats.includes(chat_name)) {
-            y_value += 72;
-            var transform_value = "translateY(" + y_value.toString() + "px)";
+            y_value += heights.chat;
+            transform_value = "translateY(" + y_value.toString() + "px)";
+            chat_mini_image = chat.getElementsByClassName(chat_mini_image_class)[0];
+            chat_mini_image.style.height = heights.image.toString() + "px";
+            chat_mini_image.style.width = heights.image.toString() + "px";
             chat.style.transform = transform_value;
+            chat.style.height = heights.chat.toString() + "px";
+            chat.getElementsByClassName(chat_height_dominant_class)[0].style.height = heights.chat.toString() + "px";
             chat.hidden = false;
             // console.log(chat_name, 'görünür')
         } else {
@@ -124,8 +135,8 @@ function changeObserver() {
 
 
         for (let mutation of mutations) {
-            if (mutation.type === 'attributes' && mutation.target.matches(`div[class*="${chat_class}"]`)) {
-                console.log('Changes in the attributes of some chats....');
+            if (mutation.target.matches(`div[class*="${chat_class}"]` && mutation.type === 'attributes')) {
+                console.log('Changes in the attributes of some chats...');
 
                 observer.disconnect();
 
@@ -207,6 +218,25 @@ function realLikeClick(element) {
     simulateMouseEvent(element, "mouseup", coordX, coordY);
     simulateMouseEvent(element, "click", coordX, coordY);
 };
+
+function trimSpaces(text) {
+    return text.split(/(\s+)/).filter(function(e) { return e.trim().length > 0; }).join(' ');
+}
+
+function calculateHeights() {
+    let default_chat_height = 72;
+    let default_img_height = 49;
+    let viewer_height = document.documentElement.clientHeight
+    if (final_chats.length * default_chat_height > viewer_height) {
+        let new_chat_height = viewer_height / final_chats.length;
+        let ratio = new_chat_height / default_chat_height;
+        let new_img_height = ratio * default_img_height;
+
+        return { image: new_img_height, chat: new_chat_height }
+    } else {
+        return { image: default_img_height, chat: default_chat_height }
+    }
+}
 
 function observeConfigs() {
     return { attributes: true, childList: true, characterData: false, subtree: true };
