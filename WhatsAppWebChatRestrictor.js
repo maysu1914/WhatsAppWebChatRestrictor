@@ -64,8 +64,8 @@ function chatObserver() {
             start();
         }
     });
-
-    observer.observe(document, observeConfigs());
+    let app = document.getElementById('app');
+    observer.observe(app, observeConfigs());
 }
 
 function start() {
@@ -80,7 +80,7 @@ function hideUnwantedChats() {
     chats = document.getElementsByClassName(chat_class);
     let heights = calculateHeights();
     let y_value = -heights.chat;
-    for (const chat of chats) {
+    for (let chat of chats) {
         let chat_name = chat.getElementsByClassName(chat_name_class)[0].textContent;
         chat_name = trimSpaces(chat_name);
         // console.log(chat_name)
@@ -105,7 +105,7 @@ function hideUnwantedChats() {
 function oneTimeCleanup() {
     removeRiskyModules();
 
-    for (const chat of chats) {
+    for (let chat of chats) {
         if (!chat.hidden) {
             var clickable_element = chat.getElementsByClassName(real_click_class)[0];
             realLikeClick(clickable_element);
@@ -135,7 +135,8 @@ function changeObserver() {
 
 
         for (let mutation of mutations) {
-            if (mutation.target.matches(`div[class*="${chat_class}"]` && mutation.type === 'attributes')) {
+
+            if (mutation.target.matches(`div[class*="${chat_class}"]`) && mutation.type === 'attributes') {
                 console.log('Changes in the attributes of some chats...');
 
                 observer.disconnect();
@@ -160,20 +161,11 @@ function changeObserver() {
                     start();
                     return;
                 }
-                // forward buttons: when image opened, when message selected
-                // console.log(node);
-                // if (node.matches('span._1TBWy')) {
-                //     if (node.querySelectorAll('div._3Xjbn._1RHZR') && !node.querySelectorAll('div._LNcL')) {
-                //         console.log('Forward window detected...');
-                //         node.querySelector('div._3Xjbn._1RHZR').remove();
-                //     }
-
-                // }
             }
         }
     });
-
-    observer.observe(document, observeConfigs());
+    let chat_pane = document.getElementById(chat_pane_id);
+    observer.observe(chat_pane, observeConfigs());
 }
 
 function removeRiskyModules() {
