@@ -86,11 +86,9 @@ function hideUnwantedChats() {
         // console.log(chat_name)
         if (final_chats.includes(chat_name)) {
             y_value += heights.chat;
-            transform_value = "translateY(" + y_value.toString() + "px)";
             chat_mini_image = chat.getElementsByClassName(chat_mini_image_class)[0];
             chat_mini_image.style.height = heights.image.toString() + "px";
             chat_mini_image.style.width = heights.image.toString() + "px";
-            chat.style.transform = transform_value;
             chat.style.height = heights.chat.toString() + "px";
             chat.getElementsByClassName(chat_height_dominant_class)[0].style.height = heights.chat.toString() + "px";
             chat.hidden = false;
@@ -98,6 +96,13 @@ function hideUnwantedChats() {
         } else {
             chat.hidden = true;
             // console.log(chat_name, 'gizli')
+        }
+    };
+    for (let chat of chats) {
+        if (!chat.hidden) {
+            transform_value = "translateY(" + y_value.toString() + "px)";
+            chat.style.transform = transform_value;
+            y_value -= heights.chat;
         }
     };
 }
