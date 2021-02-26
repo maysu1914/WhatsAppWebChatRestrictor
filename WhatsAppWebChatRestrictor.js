@@ -4,24 +4,22 @@ function init() {
     console.log('System initializing...');
     self.isPageReady = false;
     self.final_chats = [
-        '5A matematik grubu',
-        '5/A ARAPÇA GRUBU',
-        '5/A sınıfı',
-        '5/A İNGİLİZCE',
-        '5/A Fen Bilgisi',
-        'Ödev Gurubu',
-        '❤Ödev grubu❤',
-        '5A DIN ve SIYER GRUBU',
-        '5/A Beden Eğitimi',
-        '5/A Türkçe grubu'
+        'Chat 1',
+        'Chat 2',
+        'Group 1'
     ]
-    chat_class = "_1MZWu";
-    chat_name_class = "_1hI5g";
+    chat_class = "_2aBzC"; //    /html/body/div[1]/div/div/div[3]/div/div/div[1]/div/div/div[1]
+    chat_name_class = "_1adfa _3-8er"; //    /html/body/div[1]/div/div/div[3]/div/div/div[1]/div/div/div[1]/div/div/div[2]/div[1]/div[1]/span
     chat_pane_id = 'pane-side';
-    multiple_pop_class = '_30EVj IqPek';
-    real_click_class = "_3Tw1q";
-    chat_mini_image_class = "_1l12d";
-    chat_height_dominant_class = "_3Pwfx";
+    multiple_pop_class = '_3NCh_'; //    /html/body/div[1]/div/div/div/div/div
+    real_click_class = "_2Z4DV"; //    /html/body/div[1]/div/div/div[3]/div/div/div[1]/div/div/div[1]/div/div
+    chat_mini_image_class = "-y4n1"; //    /html/body/div[1]/div/div/div[3]/div/div/div[1]/div/div/div[1]/div/div/div[1]/div
+    chat_height_dominant_class = "_2Z4DV"; //    /html/body/div[1]/div/div/div[3]/div/div/div[1]/div/div/div[1]/div/div
+    multiple_pop_button_1_class = "_1dwBj _3Pd9_" //    /html/body/div[1]/div/div/div/div/div/div/div[2]/div[1]
+    multiple_pop_button_2_class = "_1dwBj _3xWLK" //    /html/body/div[1]/div/div/div/div/div/div/div[2]/div[2]
+    pane_side_remove_class = 'F-0gY' //    /html/body/div[1]/div/div/div[3]/div/div
+    /* header, char search bar, */
+    will_be_removed = ['header', 'div.SgIJV'] //
     addCSS();
 
     chatObserver();
@@ -31,13 +29,13 @@ function addCSS() {
     var style = document.createElement('style');
     style.innerHTML = `
     /* Clickable phone numbers and usernames, admin's text for readonly groups, clickable notification message numbers */
-    div.CWVX1.dV60t, span[role="button"][class="_2lheY"], span._1XH7x._3cwQ7._1VzZY {
+    div._26iqs.UxSU9, span[role="button"][class="_17SvR"], span._1adfa.eHxwV._3-8er {
         pointer-events: none; 
         cursor: default;
     }
 
-    /* Forward button, Chat dropdown button, Group info -> Search My Contacts, sended messages dropdown button*/
-    div._1ubAk, div._1lcup.kA6WR, div[class="_9lZ0E"][role="button"], div.N7Dyd.kA6WR{
+    /* Forward button, Chat dropdown button, Group info -> Search My Contacts, sended images dropdown button, sended messages dropdown button*/
+    div._3nHC-, div._3dGJA._3qSKL, div[class="-ZdaK"][role="button"], div._39Lm1._36H8K._3_UDv, div._39Lm1._3qSKL{
         visibility: hidden;
     }
 
@@ -52,7 +50,7 @@ function addCSS() {
 function chatObserver() {
     console.log('Chat observer is creating...');
 
-    var observer = new MutationObserver(function(mutations) {
+    var observer = new MutationObserver(function (mutations) {
         var check = document.getElementById(chat_pane_id);
         if (check) {
             console.log('Chat section is detected!');
@@ -78,15 +76,19 @@ function hideUnwantedChats() {
     console.log('Unwanted chats are hiding...');
 
     chats = document.getElementsByClassName(chat_class);
+    // console.log(chats)
     let heights = calculateHeights();
+    // console.log(heights)
     let y_value = -heights.chat;
     for (let chat of chats) {
         let chat_name = chat.getElementsByClassName(chat_name_class)[0].textContent;
+        // console.log(chat_name)
         chat_name = trimSpaces(chat_name);
         // console.log(chat_name)
         if (final_chats.includes(chat_name)) {
             y_value += heights.chat;
             chat_mini_image = chat.getElementsByClassName(chat_mini_image_class)[0];
+            // // console.log(chat_mini_image)
             chat_mini_image.style.height = heights.image.toString() + "px";
             chat_mini_image.style.width = heights.image.toString() + "px";
             chat.style.height = heights.chat.toString() + "px";
@@ -98,8 +100,10 @@ function hideUnwantedChats() {
             // console.log(chat_name, 'gizli')
         }
     };
+    // console.log(y_value)
     for (let chat of chats) {
         if (!chat.hidden) {
+            // console.log(y_value)
             transform_value = "translateY(" + y_value.toString() + "px)";
             chat.style.transform = transform_value;
             y_value -= heights.chat;
@@ -126,11 +130,12 @@ function changeObserver() {
         console.log('Some changes...');
 
         var multipleUsageInterrupt = document.getElementsByClassName(multiple_pop_class)[0]
-        if (document.contains(multipleUsageInterrupt)) {
+        // console.log(multipleUsageInterrupt)
+        if (multipleUsageInterrupt) {
             console.log('In Use section is detected!');
 
-            document.getElementsByClassName("_30EVj IqPek")[0].addEventListener("click", init);
-            document.getElementsByClassName("_30EVj gMRg5")[0].addEventListener("click", init);
+            document.getElementsByClassName(multiple_pop_button_1_class)[0].addEventListener("click", init);
+            document.getElementsByClassName(multiple_pop_button_2_class)[0].addEventListener("click", init);
             observer.disconnect();
 
             console.log('Change observer disconnected!');
@@ -169,19 +174,17 @@ function changeObserver() {
             }
         }
     });
-    let chat_pane = document.getElementById(chat_pane_id);
-    observer.observe(chat_pane, observeConfigs());
+    // let chat_pane = document.getElementById(chat_pane_id);
+    observer.observe(document, observeConfigs());
 }
 
 function removeRiskyModules() {
     console.log('Risky modules are deleting...');
 
-    pane_side = document.getElementById('pane-side');
-    pane_side.classList.remove('_3R02z');
-    /* header, char search bar, */
-    will_remove = ['header._2O84H', 'div._1Ra05', 'span._1DzHI']
+    pane_side = document.getElementById(chat_pane_id);
+    pane_side.classList.remove(pane_side_remove_class);
 
-    for (const selector of will_remove) {
+    for (const selector of will_be_removed) {
         var element = document.querySelector(selector);
         if (element) {
             element.parentNode.removeChild(element);
@@ -196,7 +199,7 @@ function removeRiskyModules() {
 function realLikeClick(element) {
     console.log('Real like click is simulating...');
 
-    var simulateMouseEvent = function(element, eventName, coordX, coordY) {
+    var simulateMouseEvent = function (element, eventName, coordX, coordY) {
         element.dispatchEvent(new MouseEvent(eventName, {
             view: window,
             bubbles: true,
@@ -217,7 +220,7 @@ function realLikeClick(element) {
 };
 
 function trimSpaces(text) {
-    return text.split(/(\s+)/).filter(function(e) { return e.trim().length > 0; }).join(' ');
+    return text.split(/(\s+)/).filter(function (e) { return e.trim().length > 0; }).join(' ');
 }
 
 function calculateHeights() {
