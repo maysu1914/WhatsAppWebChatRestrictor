@@ -81,9 +81,14 @@ function hideUnwantedChats() {
     // console.log(heights)
     let y_value = -heights.chat;
     for (let chat of chats) {
-        let chat_name = chat.getElementsByClassName(chat_name_class)[0].textContent;
-        // console.log(chat_name)
-        chat_name = trimSpaces(chat_name);
+        // console.log(chat)
+        let chat_name_element = chat.getElementsByClassName(chat_name_class)[0];
+        let chat_name = ''
+        if (chat_name_element) {
+            chat_name = trimSpaces(chat_name_element.innerText);
+        } else {
+            continue
+        }
         // console.log(chat_name)
         if (final_chats.includes(chat_name)) {
             y_value += heights.chat;
