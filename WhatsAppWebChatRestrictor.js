@@ -4,22 +4,30 @@ function init() {
     console.log('System initializing...');
     self.isPageReady = false;
     self.final_chats = [
-        'Chat 1',
-        'Chat 2',
-        'Group 1'
+        '5A matematik grubu',
+        '5/A ARAPÇA GRUBU',
+        '5/A sınıfı',
+        '5/A İNGİLİZCE',
+        '5/A Fen Bilgisi',
+        'Ödev Gurubu',
+        '❤Ödev grubu❤',
+        '5A DIN ve SIYER GRUBU',
+        '5/A Beden Eğitimi',
+        '5/A Türkçe grubu'
     ]
-    chat_class = "_2aBzC"; //    /html/body/div[1]/div/div/div[3]/div/div/div[1]/div/div/div[1]
-    chat_name_class = "_1adfa _3-8er"; //    /html/body/div[1]/div/div/div[3]/div/div/div[1]/div/div/div[1]/div/div/div[2]/div[1]/div[1]/span
+    chat_class = "_3m_Xw"; //    /html/body/div/div[1]/div[1]/div[3]/div/div/div[1]/div/div/div[1]
+    chat_name_class = "_ccCW FqYAR i0jNr"; //    /html/body/div/div[1]/div[1]/div[3]/div/div/div[1]/div/div/div[1]/div/div/div[2]/div[1]/div[1]/span/span
     chat_pane_id = 'pane-side';
-    multiple_pop_class = '_3NCh_'; //    /html/body/div[1]/div/div/div/div/div
-    real_click_class = "_2Z4DV"; //    /html/body/div[1]/div/div/div[3]/div/div/div[1]/div/div/div[1]/div/div
-    chat_mini_image_class = "-y4n1"; //    /html/body/div[1]/div/div/div[3]/div/div/div[1]/div/div/div[1]/div/div/div[1]/div
-    chat_height_dominant_class = "_2Z4DV"; //    /html/body/div[1]/div/div/div[3]/div/div/div[1]/div/div/div[1]/div/div
-    multiple_pop_button_1_class = "_1dwBj _3Pd9_" //    /html/body/div[1]/div/div/div/div/div/div/div[2]/div[1]
-    multiple_pop_button_2_class = "_1dwBj _3xWLK" //    /html/body/div[1]/div/div/div/div/div/div/div[2]/div[2]
-    pane_side_remove_class = 'F-0gY' //    /html/body/div[1]/div/div/div[3]/div/div
-    /* header, char search bar, */
-    will_be_removed = ['header', 'div.SgIJV'] //
+    real_click_class = "_2nY6U"; //    /html/body/div/div[1]/div[1]/div[3]/div/div[2]/div[1]/div/div/div[2]/div/div
+    chat_mini_image_class = "_3GlyB"; //    /html/body/div/div[1]/div[1]/div[3]/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div/div
+    chat_height_dominant_class = "_2nY6U"; //    /html/body/div/div[1]/div[1]/div[3]/div/div[2]/div[1]/div/div/div[1]/div/div
+    multiple_pop_class = '_3J6wB'; //    /html/body/div/div[1]/div/div/div/div
+    multiple_pop_button_1_class = "_20C5O _1zOyO" //    /html/body/div/div[1]/div/div/div/div/div/div[2]/div[1]
+    multiple_pop_button_2_class = "_20C5O _2Zdgs" //    /html/body/div[1]/div/div/div/div/div/div/div[2]/div[2]
+    // scroll bar class for paneside, should be removed
+    pane_side_remove_class = '_20c87' //    /html/body/div/div[1]/div[1]/div[3]/div/div[2]
+    /* header, chat search bar, */
+    will_be_removed = ['header', 'div.uwk68'] //    /html/body/div/div[1]/div[1]/div[3]/div/header, /html/body/div/div[1]/div[1]/div[3]/div/div[1]
     addCSS();
 
     chatObserver();
@@ -83,6 +91,7 @@ function hideUnwantedChats() {
     for (let chat of chats) {
         // console.log(chat)
         let chat_name_element = chat.getElementsByClassName(chat_name_class)[0];
+        // console.log(chat_name_element)
         let chat_name = ''
         if (chat_name_element) {
             chat_name = trimSpaces(chat_name_element.innerText);
