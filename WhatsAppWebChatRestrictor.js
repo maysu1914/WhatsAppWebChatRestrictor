@@ -4,16 +4,9 @@ function init() {
     console.log('System initializing...');
     self.isPageReady = false;
     self.final_chats = [
-        '5A matematik grubu',
-        '5/A ARAPÇA GRUBU',
-        '5/A sınıfı',
-        '5/A İNGİLİZCE',
-        '5/A Fen Bilgisi',
-        'Ödev Gurubu',
-        '❤Ödev grubu❤',
-        '5A DIN ve SIYER GRUBU',
-        '5/A Beden Eğitimi',
-        '5/A Türkçe grubu'
+        'Chat 1',
+        'Chat 2',
+        'Group 1'
     ]
     chat_class = "_3m_Xw"; //    /html/body/div/div[1]/div[1]/div[3]/div/div/div[1]/div/div/div[1]
     chat_name_class = "_ccCW FqYAR i0jNr"; //    /html/body/div/div[1]/div[1]/div[3]/div/div/div[1]/div/div/div[1]/div/div/div[2]/div[1]/div[1]/span/span
