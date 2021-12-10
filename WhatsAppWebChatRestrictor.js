@@ -9,7 +9,7 @@ function init() {
         'Group 1'
     ]
     chat_class = "_3m_Xw"; //    /html/body/div/div[1]/div[1]/div[3]/div/div/div[1]/div/div/div[1]
-    chat_name_class = "_ccCW FqYAR i0jNr"; //    /html/body/div/div[1]/div[1]/div[3]/div/div/div[1]/div/div/div[1]/div/div/div[2]/div[1]/div[1]/span/span
+    chat_name_class = "ggj6brxn gfz4du6o r7fjleex g0rxnol2 lhj4utae le5p0ye3 l7jjieqr i0jNr"; //    /html/body/div/div[1]/div[1]/div[3]/div/div/div[1]/div/div/div[1]/div/div/div[2]/div[1]/div[1]/span
     chat_pane_id = 'pane-side';
     real_click_class = "_2nY6U"; //    /html/body/div/div[1]/div[1]/div[3]/div/div[2]/div[1]/div/div/div[2]/div/div
     chat_mini_image_class = "_3GlyB"; //    /html/body/div/div[1]/div[1]/div[3]/div/div[2]/div[1]/div/div/div[1]/div/div/div[1]/div/div
