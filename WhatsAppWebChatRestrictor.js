@@ -21,14 +21,17 @@ class WhatsAppWebChatRestrictor {
             multiple_pop_button_1: "._20C5O._1zOyO",
             //    /html/body/div[1]/div/div/div/div/div/div/div[2]/div[2]
             multiple_pop_button_2: "._20C5O._2Zdgs",
-            /* header, chat search bar, */
-            //    /html/body/div/div[1]/div[1]/div[3]/div/header
-            //    /html/body/div/div[1]/div[1]/div[3]/div/div[1]
-            will_be_removed: ['header', 'div.uwk68']
+            //    /html/body/div/div[1]/div[1]/div[3]/div/header    header
+            //    /html/body/div/div[1]/div[1]/div[3]/div/div[1]    chat search bar
+            //    /html/body/div[1]/div[1]/div[1]/div[3]/div/span   blue notification box top of chats
+            will_be_removed: [
+                '#side > header',
+                'div.uwk68',
+                "div#side > span._3z9_h"
+            ],
         };
         this.pure_element_classes = {
-            // scroll bar class for paneside, should be removed
-            //    /html/body/div/div[1]/div[1]/div[3]/div/div[2]
+            //    /html/body/div/div[1]/div[1]/div[3]/div/div[2]    scroll bar class for paneside, should be removed
             pane_side_remove: '_20c87'
         };
         this.css = `/* Clickable phone numbers and usernames, admin's text for readonly groups, clickable notification message numbers */
