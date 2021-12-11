@@ -29,18 +29,33 @@ class WhatsAppWebChatRestrictor {
                 'div.uwk68',
                 "div#side > span._3z9_h"
             ],
+            //    /html/body/div[1]/div[1]/div[1]/div[4]/div[1]/div[3]/div/div[2]/div[3]/div[26]/div/div[2]     forward button in messages
+            //    /html/body/div[1]/div[1]/div[1]/div[4]/div[1]/header/div[3]/div/div[2]/div    other choices button in the chat right upper corner
+            will_be_hidden: [
+                "div[class*='_3JXTQ'][role='button']",
+                // 'div._1QVfy._3UaCz > div > div._2cNrC',
+            ],
+            //    /html/body/div[1]/div[1]/div[1]/div[2]/div[3]/span/div[1]/span/div[1]/div/section/div[6]/div[1]/div/div/div[2]/span   search contact button in the group info window
+            //    /html/body/div[1]/div[1]/div[1]/div[4]/div[1]/div[3]/div/div[2]/div[3]/div[18]/div/div[1]/div/div[1]  Clickable phone numbers and usernames
+            //    /html/body/div[1]/div[1]/div[1]/div[4]/div[1]/footer/div/span/span    admin's text for readonly groups
+            //    /html/body/div[1]/div[1]/div[1]/div[4]/div[1]/div[3]/div/div[2]/div[3]/div[26]/div/div/div/span  clickable notification message numbers
+            will_be_unclickable: [
+                "span[data-testid='search']",
+                "div[class*='hooVq'][class*='_1B9Rc'][role]",
+                "span[role='button'][class='_3J8YW']",
+                "span[dir='ltr'][class*='i0jNr']"
+            ]
         };
         this.pure_element_classes = {
             //    /html/body/div/div[1]/div[1]/div[3]/div/div[2]    scroll bar class for paneside, should be removed
             pane_side_remove: '_20c87'
         };
-        this.css = `/* Clickable phone numbers and usernames, admin's text for readonly groups, clickable notification message numbers */
-        div._26iqs.UxSU9, span[role="button"][class="_17SvR"], span._1adfa.eHxwV._3-8er {
+        this.css = `
+        ${this.element_selectors.will_be_unclickable.join(", ")}{
             pointer-events: none; 
             cursor: default;
         }
-        /* Forward button, Chat dropdown button, Group info -> Search My Contacts, sended images dropdown button, sended messages dropdown button*/
-        div._3nHC-, div._3dGJA._3qSKL, div[class="-ZdaK"][role="button"], div._39Lm1._36H8K._3_UDv, div._39Lm1._3qSKL{
+        ${this.element_selectors.will_be_hidden.join(", ")}{
             visibility: hidden;
         }
         /* pane-side overflow-y:auto-> limit the chats by window resolution, must be visible*/ 
