@@ -227,6 +227,16 @@ function realLikeClick(element) {
     simulateMouseEvent(element, "click", coordX, coordY);
 };
 
+function getClosest(element, closest_selector) {
+    while (element != document) {
+        element = element.parentNode
+        if (element.matches(closest_selector)) {
+            return element;
+        }
+    }
+    return null
+}
+
 function trimSpaces(text) {
     return text.split(/(\s+)/).filter(function (e) {
         return e.trim().length > 0;
