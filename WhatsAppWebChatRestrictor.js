@@ -237,6 +237,12 @@ function getClosest(element, closest_selector) {
     return null
 }
 
+function removeElement(element) {
+    if (element) {
+        element.parentNode.removeChild(element);
+    }
+}
+
 function trimSpaces(text) {
     return text.split(/(\s+)/).filter(function (e) {
         return e.trim().length > 0;
