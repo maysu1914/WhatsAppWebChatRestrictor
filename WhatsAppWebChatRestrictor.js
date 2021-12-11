@@ -194,11 +194,7 @@ class WhatsAppWebChatRestrictor {
         let pane_side = document.querySelector(this.element_selectors.chat_pane);
         pane_side.classList.remove(this.pure_element_classes.pane_side_remove);
         for (let element of document.querySelectorAll(this.element_selectors.will_be_removed)) {
-            if (element) {
-                element.parentNode.removeChild(element);
-            } else {
-                break;
-            }
+            element.parentNode.removeChild(element);
         };
         for (let [key, value] of Object.entries(this.element_selectors.will_be_removed_with_closest)) {
             let elements = document.querySelectorAll(key);
