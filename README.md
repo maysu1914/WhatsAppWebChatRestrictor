@@ -16,3 +16,10 @@ I made images to better explain what this project is for.
 ![image2](https://res.cloudinary.com/djiay4zdw/image/upload/v1603573494/2edited_nknaxh.jpg)
 
 You can inject the code with any code injector extension to your internet browser. *(Tested with: Code Injector extension by L.Sabatelli)*
+
+# Quick Start
+- Create a new instance of WhatsAppWebChatRestrictor at the end of the code by sending group/chat names as array
+- As example bellow:
+  ```
+  new WhatsAppWebChatRestrictor(['Group 1', "Group 2", 'Chat 1']);
+  ```
