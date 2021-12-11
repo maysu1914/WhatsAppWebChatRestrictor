@@ -142,6 +142,9 @@ class WhatsAppWebChatRestrictor {
         let wwcr = this;
         let observer = new MutationObserver(mutations => {
             console.log('Some changes...');
+            if (document.querySelectorAll(Object.keys(wwcr.element_selectors.will_be_removed_with_closest).concat(wwcr.element_selectors.will_be_removed)).length) {
+                wwcr.removeRiskyModules();
+            }
             let multipleUsageInterrupt = document.querySelector(wwcr.element_selectors.multiple_pop)
             if (multipleUsageInterrupt) {
                 console.log('In Use section is detected!');
