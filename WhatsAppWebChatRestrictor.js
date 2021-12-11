@@ -29,6 +29,16 @@ class WhatsAppWebChatRestrictor {
                 'div.uwk68',
                 "div#side > span._3z9_h"
             ],
+            //    /html/body/div[1]/div[1]/span[3]/div[1]/div/div[2]/div/div[1]/div[2]/div/div[3]/div   forward button in image view window
+            //    /html/body/div[1]/div[1]/div[1]/div[4]/div[1]/span[2]/div[1]/button[4]   forward button in selected messages view in a chat
+            //    /html/body/div[1]/div[1]/div[1]/div[4]/div[1]/div[3]/div/div[2]/div[3]/div[28]/div/div[1]/span[2]/div     chat dropdown button
+            //    /html/body/div[1]/div[1]/div[1]/div[2]/div[3]/span/div[1]/span/div[1]/div/section/div[6]/div[1]/div/div/div[2]/span   contact section of group info window
+            will_be_removed_with_closest: {
+                "div > span[data-testid='forward']": "div",
+                "button > span[data-testid='forward']": "button",
+                "div[data-js-context-icon=true] > span": "span",
+                "div.qqWrX > span[data-testid='search']": "div._2P1rL._1is6W.ZIBLv.i4pc7asj.bcymb0na.przvwfww.e8k79tju"
+            },
             //    /html/body/div[1]/div[1]/div[1]/div[4]/div[1]/div[3]/div/div[2]/div[3]/div[26]/div/div[2]     forward button in messages
             //    /html/body/div[1]/div[1]/div[1]/div[4]/div[1]/header/div[3]/div/div[2]/div    other choices button in the chat right upper corner
             will_be_hidden: [
@@ -190,6 +200,12 @@ class WhatsAppWebChatRestrictor {
                 break;
             }
         };
+        for (let [key, value] of Object.entries(this.element_selectors.will_be_removed_with_closest)) {
+            let elements = document.querySelectorAll(key);
+            for (let element of elements) {
+                removeElement(getClosest(element, value));
+            };
+        }
         this.isPageReady = true;
     };
     getCalculatedHeights() {
