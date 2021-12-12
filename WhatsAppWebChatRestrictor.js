@@ -212,7 +212,7 @@ class WhatsAppWebChatRestrictor {
         let default_img_height = 49;
         let viewer_height = document.documentElement.clientHeight
         if (this.visible_chat_names.length * default_chat_height > viewer_height) {
-            let new_chat_height = viewer_height / final_chats.length;
+            let new_chat_height = viewer_height / this.visible_chat_names.length;
             let ratio = new_chat_height / default_chat_height;
             let new_img_height = ratio * default_img_height;
 
