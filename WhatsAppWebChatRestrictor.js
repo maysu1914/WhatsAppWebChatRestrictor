@@ -158,7 +158,7 @@ class WhatsAppWebChatRestrictor {
                 return;
             }
             for (let mutation of mutations) {
-                if (mutation.target.matches(`div[class*="${wwcr.element_selectors.chat}"]`) && mutation.type === 'attributes') {
+                if (mutation.target.matches(wwcr.element_selectors.chat) && mutation.type === 'attributes') {
                     console.log('Changes in the attributes of some chats...');
                     observer.disconnect();
                     console.log('Change observer disconnected!')
@@ -168,7 +168,7 @@ class WhatsAppWebChatRestrictor {
                 for (let node of mutation.addedNodes) {
                     // we track only elements, skip other nodes (e.g. text nodes)
                     if (!(node instanceof HTMLElement)) continue;
-                    if (node.matches(`div[class*="${wwcr.element_selectors.chat}"]`)) {
+                    if (node.matches(wwcr.element_selectors.chat)) {
                         console.log('New chats have arrived...');
                         observer.disconnect();
                         console.log('Change observer disconnected!')
